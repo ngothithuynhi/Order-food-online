@@ -6,7 +6,7 @@ package Supermarket;
 
 /**
  *
- * @author USER
+ * @author USER aaaaaaa
  */
 public class Category extends javax.swing.JFrame {
 
