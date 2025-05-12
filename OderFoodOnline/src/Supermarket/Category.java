@@ -29,9 +29,12 @@ public class Category extends javax.swing.JFrame {
 
     public void SelectCategory() {
         try {
-            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketDB", "User1", "1234");
+            String url = "jdbc:mysql://localhost:3305/SupermarketDB";
+            String user = "root";
+            String password = "1234";
+            Con = DriverManager.getConnection(url, user, password);
             St = Con.createStatement();
-            Rs = St.executeQuery("Select * from User1.CATEGORY");
+           Rs = St.executeQuery("Select * from CategoryTB");
             tblCate.setModel(DbUtils.resultSetToTableModel(Rs));
         } catch (Exception e) {
             e.printStackTrace();
@@ -311,8 +314,11 @@ public class Category extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Missing Information");
         } else {
             try {
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketDB", "User1", "1234");
-                PreparedStatement add = Con.prepareStatement("insert into CATEGORY values(?,?,?)");
+                String url = "jdbc:mysql://localhost:3305/SupermarketDB";
+                String user = "root";
+                String password = "1234";
+                Con = DriverManager.getConnection(url, user, password);
+                PreparedStatement add = Con.prepareStatement("INSERT INTO CategoryTB (CatId, CatName, CatDes) VALUES (?, ?, ?)");
                 add.setInt(1, Integer.valueOf(txtid.getText()));
                 add.setString(2, txtname.getText());
                 add.setString(3, txtdes.getText());
@@ -320,6 +326,7 @@ public class Category extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Category Added Successfully");
                 Con.close();
                 SelectCategory();
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -328,6 +335,7 @@ public class Category extends javax.swing.JFrame {
 
     private void tblCateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCateMouseClicked
         // TODO add your handling code here:
+         
         DefaultTableModel model = (DefaultTableModel) tblCate.getModel();
         int Myindex = tblCate.getSelectedRow();
         txtid.setText(model.getValueAt(Myindex, 0).toString());
@@ -344,15 +352,23 @@ public class Category extends javax.swing.JFrame {
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
         // TODO add your handling code here:
+       
         if (txtid.getText().isEmpty() || txtname.getText().isEmpty() || txtdes.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing Information");
         } else {
             try {
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketDB", "User1", "1234");
-                String Query = "Update User1.CATEGORY set NAME='" + txtname.getText() + "'" + ",DESCRIPTION='" + txtdes.getText() + "'" + "where ID=" + txtid.getText();
-                Statement Add = Con.createStatement();
-                Add.executeUpdate(Query);
-                JOptionPane.showMessageDialog(this, "Category update ");
+                String url = "jdbc:mysql://localhost:3305/SupermarketDB";
+                String user = "root";
+                String password = "1234";
+                Con = DriverManager.getConnection(url, user, password);
+                String Query = "UPDATE CategoryTB SET CatName = ?, CatDes = ? WHERE CatId = ?";
+                PreparedStatement update = Con.prepareStatement(Query);
+                update.setString(1, txtname.getText());
+                update.setString(2, txtdes.getText());
+                update.setInt(3, Integer.valueOf(txtid.getText()));
+                update.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Category Updated Successfully");
+                Con.close();
                 SelectCategory();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -362,18 +378,24 @@ public class Category extends javax.swing.JFrame {
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
         // TODO add your handling code here:
+       
         if (txtid.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter The Category To Be Deleted");
 
         } else {
             try {
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketDB", "User1", "1234");
+               String url = "jdbc:mysql://localhost:3305/SupermarketDB";
+                String user = "root";
+                String password = "1234";
+                Con = DriverManager.getConnection(url, user, password);
                 String SId = txtid.getText();
-                String Query = "Delete from User1.CATEGORY where ID= " + SId;
-                Statement Add = Con.createStatement();
-                Add.executeUpdate(Query);
+                String Query = "DELETE FROM CategoryTB WHERE CatId = ?";
+                PreparedStatement delete = Con.prepareStatement(Query);
+                delete.setInt(1, Integer.valueOf(SId));
+                delete.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Category Deleted Successfully");
+                Con.close();
                 SelectCategory();
-                JOptionPane.showMessageDialog(this, "Category deleted Successfully ");
             } catch (Exception e) {
                 e.printStackTrace();
             }
