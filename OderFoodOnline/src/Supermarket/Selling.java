@@ -3,7 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Supermarket;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
 /**
  *
  * @author MSI GF63
@@ -14,9 +22,68 @@ public class Selling extends javax.swing.JFrame {
      * Creates new form Selling
      */
     public Selling() {
-        initComponents();
+       initComponents();
+        seclecSeller();
+        GetCat();
     }
-
+     Connection Con = null;
+    Statement St= null; 
+    ResultSet Rs =null;
+    private void GetCat(){
+       try {
+        String url = "jdbc:mysql://localhost:3305/SupermarketDB"; // Sửa tên cơ sở dữ liệu
+        String user = "root";
+        String password = "1234";
+        Con = DriverManager.getConnection(url, user, password);
+        St = Con.createStatement();
+        String query = "SELECT * FROM CategoryTB"; // Thêm khoảng cách đúng
+        Rs = St.executeQuery(query);
+        CatCb.removeAllItems(); // Xóa các mục cũ trong ComboBox
+        while (Rs.next()) {
+            String Mycat = Rs.getString("CatName"); // Khớp với tên cột thực tế
+            CatCb.addItem(Mycat);
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error loading categories: " + e.getMessage());
+        e.printStackTrace();
+    } finally {
+        try { if (Con != null) Con.close(); } catch (SQLException e) { e.printStackTrace(); }
+    }
+    }
+     public void seclecSeller(){
+        try {
+            String url = "jdbc:mysql://localhost:3305/SupermarketDB";
+            String user = "root";
+            String password = "1234";
+            Con = DriverManager.getConnection(url, user, password);
+              St= Con.createStatement();
+              Rs = St.executeQuery("Select * from PRODUCTTBL");
+              ProducListBtn.setModel(DbUtils.resultSetToTableModel(Rs));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+     int Prid,newQty;
+    public void update(){
+        try {
+        String url = "jdbc:mysql://localhost:3305/SupermarketDB"; // Sửa tên cơ sở dữ liệu
+        String user = "root";
+        String password = "1234";
+        Con = DriverManager.getConnection(url, user, password);
+        String Query = "UPDATE PRODUCTTBL SET PRODQTY = ? WHERE PROID = ?"; // Sửa cú pháp và dùng PreparedStatement
+        PreparedStatement update = Con.prepareStatement(Query);
+        update.setInt(1, newQty);
+        update.setInt(2, Prid);
+        update.executeUpdate();
+        // JOptionPane.showMessageDialog(this, "Product Updated");
+        seclecSeller(); // Cập nhật lại danh sách sản phẩm
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error updating product: " + e.getMessage());
+        e.printStackTrace();
+    } finally {
+        try { if (Con != null) Con.close(); } catch (SQLException e) { e.printStackTrace(); }
+    }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,26 +96,26 @@ public class Selling extends javax.swing.JFrame {
         GendarCb = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        BillId = new javax.swing.JTextField();
-        billQuantity = new javax.swing.JTextField();
-        billName = new javax.swing.JTextField();
-        AddBtn = new javax.swing.JButton();
-        EditBtn = new javax.swing.JButton();
-        DeleteBtn = new javax.swing.JButton();
-        ClearBtn = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        billPrice = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        boxCategory = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        ProdName = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        ProdQty = new javax.swing.JTextField();
+        CatCb = new javax.swing.JComboBox<>();
+        AddBtn = new javax.swing.JButton();
+        Clear = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ProducListBtn = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        DeleteBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        BILTxt = new javax.swing.JTextArea();
+        EditBtn = new javax.swing.JButton();
+        Grdtottbl = new javax.swing.JLabel();
+        Fillterbtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         GendarCb.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         GendarCb.setForeground(new java.awt.Color(255, 51, 0));
@@ -65,236 +132,9 @@ public class Selling extends javax.swing.JFrame {
         jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel3.setBackground(new java.awt.Color(255, 51, 0));
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel6.setText("NAME");
-        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel7.setText("Billing Point");
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel8.setText("BILLID");
-        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel9.setText("QUANTITY");
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel10.setText("PRICE");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        BillId.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        BillId.setForeground(new java.awt.Color(255, 51, 0));
-        BillId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BillIdActionPerformed(evt);
-            }
-        });
-
-        billQuantity.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        billQuantity.setForeground(new java.awt.Color(255, 51, 0));
-        billQuantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billQuantityActionPerformed(evt);
-            }
-        });
-
-        billName.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        billName.setForeground(new java.awt.Color(255, 51, 0));
-        billName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billNameActionPerformed(evt);
-            }
-        });
-
-        AddBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        AddBtn.setForeground(new java.awt.Color(255, 51, 0));
-        AddBtn.setText("ADD");
-        AddBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddBtnMouseClicked(evt);
-            }
-        });
-
-        EditBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        EditBtn.setForeground(new java.awt.Color(255, 51, 0));
-        EditBtn.setText("EDIT");
-        EditBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EditBtnMouseClicked(evt);
-            }
-        });
-
-        DeleteBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        DeleteBtn.setForeground(new java.awt.Color(255, 51, 0));
-        DeleteBtn.setText("DELETE");
-        DeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DeleteBtnMouseClicked(evt);
-            }
-        });
-
-        ClearBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        ClearBtn.setForeground(new java.awt.Color(255, 51, 0));
-        ClearBtn.setText("CLEAR");
-        ClearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ClearBtnMouseClicked(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel12.setText("Sellers List");
-        jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        billPrice.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        billPrice.setForeground(new java.awt.Color(255, 51, 0));
-        billPrice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billPriceActionPerformed(evt);
-            }
-        });
-
-        jLabel13.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel13.setText("CATEGORY");
-        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        boxCategory.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        boxCategory.setForeground(new java.awt.Color(255, 51, 0));
-        boxCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Beverage", "Vegetable", "Meat" }));
-        boxCategory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxCategoryActionPerformed(evt);
-            }
-        });
-
-        jTable1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "NAME", "PRICE", "QUANTITY", "CATEGORY"
-            }
-        ));
-        jTable1.setRowHeight(25);
-        jTable1.setSelectionBackground(new java.awt.Color(255, 51, 0));
-        jTable1.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTable1);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(301, 301, 301))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(AddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
-                        .addComponent(EditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)
-                        .addComponent(DeleteBtn)
-                        .addGap(94, 94, 94)
-                        .addComponent(ClearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(billName, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(40, 40, 40)
-                                    .addComponent(BillId, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(boxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(billPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(billQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(173, 173, 173))))))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(BillId))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel12)
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(billName))
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(billQuantity))
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(billPrice))
-                        .addGap(40, 40, 40)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(boxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(81, 81, 81)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(AddBtn)
-                            .addComponent(EditBtn)
-                            .addComponent(DeleteBtn)
-                            .addComponent(ClearBtn))
-                        .addGap(177, 177, 177))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
 
         jLabel4.setFont(new java.awt.Font("Gill Sans MT", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -305,15 +145,263 @@ public class Selling extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(852, 578));
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
+        jLabel1.setText("BILLING POINT");
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel5.setText("NAME");
+
+        ProdName.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        ProdName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProdNameActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel8.setText("QUANTITY");
+
+        ProdQty.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        ProdQty.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProdQtyMouseClicked(evt);
+            }
+        });
+        ProdQty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProdQtyActionPerformed(evt);
+            }
+        });
+
+        CatCb.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        CatCb.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CatCbItemStateChanged(evt);
+            }
+        });
+        CatCb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CatCbMouseClicked(evt);
+            }
+        });
+        CatCb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CatCbActionPerformed(evt);
+            }
+        });
+
+        AddBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        AddBtn.setText("Add to Bill");
+        AddBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddBtnMouseClicked(evt);
+            }
+        });
+        AddBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddBtnActionPerformed(evt);
+            }
+        });
+
+        Clear.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        Clear.setText("Clear");
+        Clear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ClearMouseClicked(evt);
+            }
+        });
+        Clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearActionPerformed(evt);
+            }
+        });
+
+        ProducListBtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        ProducListBtn.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "PRODID", "PRODNAME", "PPRODQUANTITY", "PRODPRICE", "PRODCAT"
+            }
+        ));
+        ProducListBtn.setFocusable(false);
+        ProducListBtn.setGridColor(new java.awt.Color(128, 128, 128));
+        ProducListBtn.setPreferredSize(new java.awt.Dimension(375, 500));
+        ProducListBtn.setRowHeight(25);
+        ProducListBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProducListBtnMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(ProducListBtn);
+
+        jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
+        jLabel14.setText(" Product List");
+
+        DeleteBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        DeleteBtn.setText("Refresh");
+        DeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DeleteBtnMouseClicked(evt);
+            }
+        });
+        DeleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteBtnActionPerformed(evt);
+            }
+        });
+
+        BILTxt.setColumns(20);
+        BILTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        BILTxt.setRows(5);
+        jScrollPane2.setViewportView(BILTxt);
+
+        EditBtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        EditBtn.setText("Print");
+        EditBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EditBtnMouseClicked(evt);
+            }
+        });
+        EditBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditBtnActionPerformed(evt);
+            }
+        });
+
+        Grdtottbl.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
+        Grdtottbl.setText("ToTal: ");
+
+        Fillterbtn.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        Fillterbtn.setText("Fillter");
+        Fillterbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FillterbtnMouseClicked(evt);
+            }
+        });
+        Fillterbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FillterbtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ProdName, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProdQty, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(AddBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Clear)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(CatCb, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Fillterbtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(DeleteBtn)
+                        .addGap(128, 128, 128))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(308, 308, 308)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(EditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(Grdtottbl, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(196, 196, 196))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CatCb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DeleteBtn)
+                    .addComponent(Fillterbtn))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(ProdName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(ProdQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(AddBtn)
+                            .addComponent(Clear)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(Grdtottbl)
+                        .addGap(41, 41, 41))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(EditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
+        jLabel2.setText("Log Out");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(61, 61, 61)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 961, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 1081, Short.MAX_VALUE)
+                        .addComponent(jLabel4)))
                 .addGap(22, 22, 22))
         );
         jPanel3Layout.setVerticalGroup(
@@ -321,9 +409,14 @@ public class Selling extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -338,103 +431,179 @@ public class Selling extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BillIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BillIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BillIdActionPerformed
-
-    private void billQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billQuantityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_billQuantityActionPerformed
-
-    private void billNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_billNameActionPerformed
-
-    private void AddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBtnMouseClicked
-        // TODO add your handling code here:
-        if (BillId.getText().isEmpty() || billName.getText().isEmpty() || billQuantity.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Missing Information");
-        } else {
-            try {
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketDB", "User1", "1234");
-                PreparedStatement add = Con.prepareStatement("insert into SELLER values(?,?,?,?)");
-                add.setInt(1, Integer.valueOf(BillId.getText()));
-                add.setString(2, billName.getText());
-                add.setString(3, billQuantity.getText());
-                add.setString(4, GendarCb.getSelectedItem().toString());
-                int row = add.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Seller Added Successfully");
-                Con.close();
-                SelectSeller();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_AddBtnMouseClicked
-
-    private void EditBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditBtnMouseClicked
-        // TODO add your handling code here:
-        if (BillId.getText().isEmpty() || billName.getText().isEmpty() || billQuantity.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Missing Information");
-        } else {
-            try {
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketDB", "User1", "1234");
-                String Query = "Update User1.SELLER set SELNAME='" + billName.getText() + "'" + ",SELPASS='" + billQuantity.getText() + "'" + ",SELGENDAR='" + GendarCb.getSelectedItem().toString() + "'" + "where SELID=" + BillId.getText();
-                Statement Add = Con.createStatement();
-                Add.executeUpdate(Query);
-                JOptionPane.showMessageDialog(this, "Seller update ");
-                SelectSeller();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_EditBtnMouseClicked
-
-    private void DeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBtnMouseClicked
-        // TODO add your handling code here:
-        if (BillId.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Enter The Seller To Be Deleted");
-
-        } else {
-            try {
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketDB", "User1", "1234");
-                String SId = BillId.getText();
-                String Query = "Delete from User1.SELLER where SELID= " + SId;
-                Statement Add = Con.createStatement();
-                Add.executeUpdate(Query);
-                SelectSeller();
-                JOptionPane.showMessageDialog(this, "Seller deleted Successfully ");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_DeleteBtnMouseClicked
-
-    private void ClearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClearBtnMouseClicked
-        // TODO add your handling code here:
-        BillId.setText("");
-        billName.setText("");
-        billQuantity.setText("");
-    }//GEN-LAST:event_ClearBtnMouseClicked
-
+     int i=0;
+     Double Uprice,ProdTot=0.0,GrdTotal=0.0;
+     int AvailQty;
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void billPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billPriceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_billPriceActionPerformed
-
     private void GendarCbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GendarCbActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GendarCbActionPerformed
 
-    private void boxCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCategoryActionPerformed
+    private void FillterbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FillterbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_boxCategoryActionPerformed
+    }//GEN-LAST:event_FillterbtnActionPerformed
+
+    private void FillterbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FillterbtnMouseClicked
+        if (CatCb.getSelectedItem() != null) {
+            String selectedCategory = CatCb.getSelectedItem().toString();
+            try {
+                String url = "jdbc:mysql://localhost:3305/SupermarketDB"; // Sửa tên cơ sở dữ liệu
+                String user = "root";
+                String password = "1234";
+                Con = DriverManager.getConnection(url, user, password);
+                String query = "SELECT * FROM PRODUCTTBL WHERE PRODCAT = ?";
+                PreparedStatement pst = Con.prepareStatement(query);
+                pst.setString(1, selectedCategory);
+                Rs = pst.executeQuery();
+                ProducListBtn.setModel(DbUtils.resultSetToTableModel(Rs));
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error filtering products: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                try { if (Con != null) Con.close(); } catch (SQLException e) { e.printStackTrace(); }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a category to filter.");
+        }
+    }//GEN-LAST:event_FillterbtnMouseClicked
+
+    private void EditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EditBtnActionPerformed
+
+    private void EditBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditBtnMouseClicked
+        try {
+            BILTxt.print();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_EditBtnMouseClicked
+
+    private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DeleteBtnActionPerformed
+
+    private void DeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBtnMouseClicked
+        seclecSeller();
+    }//GEN-LAST:event_DeleteBtnMouseClicked
+
+    private void ProducListBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProducListBtnMouseClicked
+        DefaultTableModel model = (DefaultTableModel) ProducListBtn.getModel();
+        int Myindex = ProducListBtn.getSelectedRow();
+
+        try {
+            Prid = Integer.valueOf(model.getValueAt(Myindex, 0).toString());
+            AvailQty = Integer.valueOf(model.getValueAt(Myindex, 2).toString());
+            Uprice = Double.valueOf(model.getValueAt(Myindex, 3).toString());
+            ProdName.setText(model.getValueAt(Myindex, 1).toString());
+
+            if (!ProdQty.getText().isEmpty()) {
+                try {
+                    int enteredQty = Integer.parseInt(ProdQty.getText());
+                    if (enteredQty > AvailQty) {
+                        JOptionPane.showMessageDialog(this, "Not Enough In Stock");
+                        newQty = AvailQty; // Nếu không đủ hàng, không giảm số lượng
+                    } else {
+                        newQty = AvailQty - enteredQty; // Tính trước số lượng mới
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Please enter a valid numeric quantity.");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error processing selected product: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_ProducListBtnMouseClicked
+
+    private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClearActionPerformed
+
+    private void ClearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClearMouseClicked
+
+        ProdName.setText("");
+        ProdQty.setText("");
+        //ProPrice.setText("");
+    }//GEN-LAST:event_ClearMouseClicked
+
+    private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddBtnActionPerformed
+
+    private void AddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBtnMouseClicked
+        if (ProdName.getText().isEmpty() || ProdQty.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Missing Information");
+            return;
+        }
+
+        try {
+            int enteredQty = Integer.parseInt(ProdQty.getText()); // Parse quantity
+
+            if (enteredQty <= 0) {
+                JOptionPane.showMessageDialog(this, "Quantity must be greater than 0");
+                return;
+            }
+
+            if (enteredQty > AvailQty) {
+                JOptionPane.showMessageDialog(this, "Not Enough In Stock");
+                return;
+            }
+
+            i++;
+            ProdTot = Uprice * enteredQty;
+            GrdTotal += ProdTot;
+
+            if (i == 1) {
+                BILTxt.setText("\t======== FIVET POINT ========\n" +
+                    "NUM\tPRODUCT\tPRICE\tQUANTITY\tTOTAL\n" +
+                    i + "\t" + ProdName.getText() + "\t" + Uprice + "\t" + enteredQty + "\t" + ProdTot + "\n");
+            } else {
+                BILTxt.setText(BILTxt.getText() +
+                    i + "\t" + ProdName.getText() + "\t" + Uprice + "\t" + enteredQty + "\t" + ProdTot + "\n");
+            }
+
+            Grdtottbl.setText("Total: " + GrdTotal);
+            newQty = AvailQty - enteredQty; // Tính toán newQty
+            update(); // Cập nhật số lượng trong DB
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid numeric quantity.");
+        }
+    }//GEN-LAST:event_AddBtnMouseClicked
+
+    private void CatCbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CatCbActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CatCbActionPerformed
+
+    private void CatCbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CatCbMouseClicked
+
+    }//GEN-LAST:event_CatCbMouseClicked
+
+    private void CatCbItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CatCbItemStateChanged
+
+    }//GEN-LAST:event_CatCbItemStateChanged
+
+    private void ProdQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdQtyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProdQtyActionPerformed
+
+    private void ProdQtyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProdQtyMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProdQtyMouseClicked
+
+    private void ProdNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProdNameActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        new login().setVisible(true);
+       this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -473,27 +642,27 @@ public class Selling extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddBtn;
-    private javax.swing.JTextField BillId;
-    private javax.swing.JButton ClearBtn;
+    private javax.swing.JTextArea BILTxt;
+    private javax.swing.JComboBox<String> CatCb;
+    private javax.swing.JButton Clear;
     private javax.swing.JButton DeleteBtn;
     private javax.swing.JButton EditBtn;
+    private javax.swing.JButton Fillterbtn;
     private javax.swing.JComboBox<String> GendarCb;
-    private javax.swing.JTextField billName;
-    private javax.swing.JTextField billPrice;
-    private javax.swing.JTextField billQuantity;
-    private javax.swing.JComboBox<String> boxCategory;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel Grdtottbl;
+    private javax.swing.JTextField ProdName;
+    private javax.swing.JTextField ProdQty;
+    private javax.swing.JTable ProducListBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
