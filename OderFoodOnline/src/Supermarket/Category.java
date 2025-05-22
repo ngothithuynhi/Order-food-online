@@ -64,7 +64,6 @@ public class Category extends javax.swing.JFrame {
         tblCate = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         Update = new javax.swing.JLabel();
@@ -73,27 +72,23 @@ public class Category extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel3.setBackground(new java.awt.Color(255, 51, 0));
+        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 51, 0));
         jLabel6.setText("NAME");
         jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 51, 0));
         jLabel7.setText("Manage Categories");
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 51, 0));
         jLabel8.setText("CATEGORYID");
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 51, 0));
         jLabel9.setText("DESCRIPTION");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -116,7 +111,6 @@ public class Category extends javax.swing.JFrame {
         });
 
         btnAdd.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 51, 0));
         btnAdd.setText("ADD");
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,7 +119,6 @@ public class Category extends javax.swing.JFrame {
         });
 
         btnEdit.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        btnEdit.setForeground(new java.awt.Color(255, 51, 0));
         btnEdit.setText("EDIT");
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -134,7 +127,6 @@ public class Category extends javax.swing.JFrame {
         });
 
         btnDelete.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 51, 0));
         btnDelete.setText("DELETE");
         btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -143,7 +135,6 @@ public class Category extends javax.swing.JFrame {
         });
 
         btnClear.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        btnClear.setForeground(new java.awt.Color(255, 51, 0));
         btnClear.setText("CLEAR");
         btnClear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -174,7 +165,6 @@ public class Category extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblCate);
 
         jLabel12.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 51, 0));
         jLabel12.setText("Categories List");
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -209,16 +199,16 @@ public class Category extends javax.swing.JFrame {
                                 .addGroup(jPanel4Layout.createSequentialGroup()
                                     .addGap(18, 18, 18)
                                     .addComponent(txtdes))
-                                .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addGap(105, 105, 105)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                     .addGap(56, 56, 56)
                                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(106, 106, 106)
                                     .addComponent(btnDelete)
                                     .addGap(82, 82, 82)
-                                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGap(247, 247, 247)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -255,14 +245,6 @@ public class Category extends javax.swing.JFrame {
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
-            }
-        });
-
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
-        jLabel11.setText("Products");
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
             }
         });
 
@@ -313,14 +295,9 @@ public class Category extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(jLabel13)
                     .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(470, 470, 470)
-                    .addComponent(jLabel11)
-                    .addContainerGap(573, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,21 +319,13 @@ public class Category extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(342, 342, 342)
-                    .addComponent(jLabel11)
-                    .addContainerGap(270, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,11 +445,6 @@ public class Category extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        new Products().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jLabel11MouseClicked
-
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         new Seller().setVisible(true);
         this.dispose();
@@ -542,7 +506,6 @@ public class Category extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

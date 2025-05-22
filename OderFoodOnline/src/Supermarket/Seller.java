@@ -76,32 +76,27 @@ public class Seller extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel3.setBackground(new java.awt.Color(255, 51, 0));
+        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 51, 0));
         jLabel6.setText("NAME");
         jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 51, 0));
         jLabel7.setText("Manage Sellers");
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 51, 0));
         jLabel8.setText("SELLERID");
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 51, 0));
         jLabel9.setText("PASSWORD");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 51, 0));
         jLabel10.setText("GENDER");
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -122,7 +117,6 @@ public class Seller extends javax.swing.JFrame {
         });
 
         GendarCb.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        GendarCb.setForeground(new java.awt.Color(255, 51, 0));
         GendarCb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         GendarCb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,7 +133,6 @@ public class Seller extends javax.swing.JFrame {
         });
 
         AddBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        AddBtn.setForeground(new java.awt.Color(255, 51, 0));
         AddBtn.setText("ADD");
         AddBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -148,7 +141,6 @@ public class Seller extends javax.swing.JFrame {
         });
 
         EditBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        EditBtn.setForeground(new java.awt.Color(255, 51, 0));
         EditBtn.setText("EDIT");
         EditBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -157,7 +149,6 @@ public class Seller extends javax.swing.JFrame {
         });
 
         DeleteBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        DeleteBtn.setForeground(new java.awt.Color(255, 51, 0));
         DeleteBtn.setText("DELETE");
         DeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -166,7 +157,6 @@ public class Seller extends javax.swing.JFrame {
         });
 
         ClearBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        ClearBtn.setForeground(new java.awt.Color(255, 51, 0));
         ClearBtn.setText("CLEAR");
         ClearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -197,7 +187,6 @@ public class Seller extends javax.swing.JFrame {
         jScrollPane1.setViewportView(SellerTable);
 
         jLabel12.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 51, 0));
         jLabel12.setText("Sellers List");
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -216,17 +205,16 @@ public class Seller extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
                         .addComponent(SelId, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(73, 73, 73)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(SelPass, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(GendarCb, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(144, 144, 144))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -270,13 +258,12 @@ public class Seller extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(SelName))
-                        .addGap(48, 48, 48))
+                            .addComponent(SelName)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GendarCb, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(GendarCb, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddBtn)
@@ -347,7 +334,7 @@ public class Seller extends javax.swing.JFrame {
                             .addComponent(jLabel13)
                             .addComponent(Update1)
                             .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 896, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
         );
@@ -376,7 +363,7 @@ public class Seller extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1091, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

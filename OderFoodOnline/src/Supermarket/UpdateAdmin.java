@@ -50,8 +50,9 @@ public class UpdateAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 51, 0));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
+        jLabel7.setBackground(new java.awt.Color(0, 153, 153));
         jLabel7.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("UpdateAdmin");
@@ -79,7 +80,6 @@ public class UpdateAdmin extends javax.swing.JFrame {
         });
 
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 51, 0));
         jButton1.setText("Update");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -88,7 +88,6 @@ public class UpdateAdmin extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 51, 0));
         jButton2.setText("Clear");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

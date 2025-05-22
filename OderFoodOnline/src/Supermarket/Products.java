@@ -102,37 +102,31 @@ public class Products extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel3.setBackground(new java.awt.Color(255, 51, 0));
+        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 51, 0));
         jLabel6.setText("NAME");
         jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 51, 0));
         jLabel7.setText("Manage Products");
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 51, 0));
         jLabel8.setText("PRODID");
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 51, 0));
         jLabel9.setText("PRICE");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 51, 0));
         jLabel10.setText("CATEGORY");
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel11.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 51, 0));
         jLabel11.setText("QUANTITY");
         jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -155,7 +149,6 @@ public class Products extends javax.swing.JFrame {
         });
 
         CatCb.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        CatCb.setForeground(new java.awt.Color(255, 51, 0));
         CatCb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Beverage", "Vegetable", "Meat" }));
         CatCb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +163,6 @@ public class Products extends javax.swing.JFrame {
         });
 
         AddBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        AddBtn.setForeground(new java.awt.Color(255, 51, 0));
         AddBtn.setText("ADD");
         AddBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -179,7 +171,6 @@ public class Products extends javax.swing.JFrame {
         });
 
         EditBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        EditBtn.setForeground(new java.awt.Color(255, 51, 0));
         EditBtn.setText("EDIT");
         EditBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -188,7 +179,6 @@ public class Products extends javax.swing.JFrame {
         });
 
         DeleteBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        DeleteBtn.setForeground(new java.awt.Color(255, 51, 0));
         DeleteBtn.setText("DELETE");
         DeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -197,7 +187,6 @@ public class Products extends javax.swing.JFrame {
         });
 
         Clear.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        Clear.setForeground(new java.awt.Color(255, 51, 0));
         Clear.setText("CLEAR");
         Clear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -228,7 +217,6 @@ public class Products extends javax.swing.JFrame {
         jScrollPane1.setViewportView(ProducListBtn);
 
         jLabel12.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 51, 0));
         jLabel12.setText("Products List");
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -256,9 +244,9 @@ public class Products extends javax.swing.JFrame {
                                 .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(194, 194, 194)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(ProPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,11 +278,12 @@ public class Products extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ProPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ProdID))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ProPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ProdID)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -375,7 +364,7 @@ public class Products extends javax.swing.JFrame {
                             .addComponent(jLabel14)
                             .addComponent(Update)
                             .addComponent(jLabel15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
         );
@@ -391,9 +380,9 @@ public class Products extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jLabel13)
-                        .addGap(32, 32, 32)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel14)
-                        .addGap(36, 36, 36)
+                        .addGap(18, 18, 18)
                         .addComponent(Update)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
