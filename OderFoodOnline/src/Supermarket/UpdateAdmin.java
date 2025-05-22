@@ -182,7 +182,7 @@ public class UpdateAdmin extends javax.swing.JFrame {
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+       this.setVisible(false);
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -193,16 +193,20 @@ public class UpdateAdmin extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        if (AdminName.getText().isEmpty() || AdminPass.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Missing Information");
-        } else {
+        if(AdminName.getText().isEmpty() || AdminPass.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Missing Iformation ");
+        }
+        else{
             try {
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketDB", "User1", "1234");
-                String Query = "Update User1.UPDATETB set ADMINNAME='" + AdminName.getText() + "'" + ",ADMINPASS='" + AdminPass.getText() + "'" + "where ID=" + 1;
-                Statement Add = Con.createStatement();
+                String url = "jdbc:mysql://localhost:3305/SupermarketDB"; // Sửa tên cơ sở dữ liệu
+                String user = "root";
+                String password = "1234";
+                Con = DriverManager.getConnection(url, user, password);
+                String Query ="Update ADMINTBL set ADMINNAME = '"+AdminName.getText()+"'"+",ADMINPASS= '"+AdminPass.getText()+"'"+"Where ID="+1;
+                Statement Add =Con.createStatement();
                 Add.executeUpdate(Query);
-                JOptionPane.showMessageDialog(this, "Password Successfully Update ");
-                //SelectSeller();
+                JOptionPane.showMessageDialog(this, "Password Updated  ");
+                //seclecSeller();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
